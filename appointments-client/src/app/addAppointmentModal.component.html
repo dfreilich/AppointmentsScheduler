@@ -1,0 +1,32 @@
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-select [(ngModel)]="doctor" id="doctors-list" placeholder="Select a Doctor" required>
+      <mat-option *ngFor="let doctor of data.doctors" [value]="doctor">{{doctor.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="patient" id="patients-list" placeholder="Select a Patient" required>
+      <mat-option *ngFor="let patient of data.patients" [value]="patient">{{patient.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="date" required>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+
+  <!--Add validation that start time is allowed-->
+  <label>Choose the appointment start time:</label>
+  <ngb-timepicker [(ngModel)]="startTime" [meridian]="true"></ngb-timepicker>
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="duration" id="durations-list" placeholder="How Long Will It Be?" required>
+      <mat-option *ngFor="let duration of data.durations" [value]="duration">{{duration}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="onClick()" cdkFocusInitial>Ok</button>
+</div>

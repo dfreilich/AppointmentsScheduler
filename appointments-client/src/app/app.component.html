@@ -1,0 +1,61 @@
+<div class="jumbotron" style="text-align:center">
+  <h1>
+    {{title}}
+  </h1>
+  <br />
+  <button type="button" class="btn btn-primary" (click)="openAddDialog()">Add New Appointment</button>
+</div>
+
+<div id="label">
+  <span>Displaying appointments for Dr. </span>
+  <mat-form-field>
+    <mat-select [(ngModel)]="doctor" id="doctors-list" placeholder="Select a Doctor">
+      <mat-option *ngFor="let doctor of doctors" (click)="getAppointmentsForDay(doctor, date)" [value]="doctor">{{doctor.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <span>on </span>
+  <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="date" (ngModelChange)="getAppointmentsForDay(doctor, date)">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker (change)="getAppointmentsForDay(doctor, date)"></mat-datepicker>
+</div>
+
+<div class="example-container mat-elevation-z8">
+  <div class="example-table-container">
+
+    <table mat-table [dataSource]="todaysAppointments" class="example-table"
+           matSort>
+      <!-- Date Column -->
+      <ng-container matColumnDef="Date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let row">{{row.date | date}}</td>
+      </ng-container>
+
+      <!-- Patient Column -->
+      <ng-container matColumnDef="Patient">
+        <th mat-header-cell *matHeaderCellDef>Patient</th>
+        <td mat-cell *matCellDef="let row">{{getPatientName(row.patientId) | titlecase}}</td>
+      </ng-container>
+
+      <!--TODO: Fix sorting-->
+      <!-- Start Time-->
+      <ng-container matColumnDef="Start Time">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Start Time
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.startTime | date: 'shortTime'}}</td>
+      </ng-container>
+
+      <!-- End Time -->
+      <ng-container matColumnDef="End Time">
+        <th mat-header-cell *matHeaderCellDef>
+          End Time
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.endTime | date: 'shortTime'}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

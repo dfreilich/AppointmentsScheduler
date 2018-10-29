@@ -1,0 +1,11 @@
+'use strict';
+
+let express = require('express');
+let router = express.Router();
+let Doctor = require('../../controllers/doctor');
+
+router.get('/', Doctor.getAll);
+router.get('/:id', Doctor.get);
+//TODO: Add routes to add Doctors
+
+module.exports = router;
