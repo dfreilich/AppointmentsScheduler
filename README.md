@@ -2,6 +2,8 @@
 
 This is an Appointments Manager web-app, written for Cedar, as a 4-5 hour coding project. It was constructed as two disjoint parts – a NodeJS server (located in ./server), and an Angular/Typescript client (located in ./appointments-client). 
 
+![Screen Shot of Web App](./Screen-Shot.png)
+
 ## Getting Started
 
 ### Prerequisites
